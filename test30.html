@@ -1,101 +1,99 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>執着チェック</title>
-  <style>
-    body {
-      font-family: 'Noto Sans JP', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #fff;
-      color: #333;
-    }
+[... your existing HTML content remains unchanged ...]
 
-    .container {
-      max-width: 480px;
-      margin: 0 auto;
-      padding: 20px;
-    }
+<script>
+  const quiz = document.getElementById("quiz");
+  const result = document.getElementById("result");
+  const scoreDisplay = document.getElementById("score");
+  const resultMessage = document.getElementById("result-message");
+  const progressFill = document.getElementById("progress-fill");
 
-    .title {
-      font-size: 1.8rem;
-      font-weight: bold;
-      color: #FFAFAF; /* ピンク */
-      margin-bottom: 10px;
-      text-align: center;
-      line-height: 1.3;
-      word-break: break-word;
-    }
+  const questions = [
+    { category: "恋愛", text: "相手の行動が気になりすぎてSNSを何度もチェックしてしまう" },
+    { category: "恋愛", text: "LINEの既読・未読で感情が大きく動いてしまう" },
+    { category: "恋愛", text: "元恋人に対して今もモヤモヤした気持ちがある" },
+    { category: "恋愛", text: "好きな人の言動に一喜一憂してしまう" },
+    { category: "恋愛", text: "相手を試すような言動をしてしまう" },
 
-    .bar {
-      height: 6px;
-      background-color: #4FB6B2; /* ティール */
-      width: 100%;
-      border-radius: 4px;
-      margin-bottom: 20px;
-    }
+    { category: "家族", text: "家族にもっと感謝してほしいと感じることが多い" },
+    { category: "家族", text: "親の価値観に縛られていると感じる" },
+    { category: "家族", text: "兄弟姉妹と比較されるとイラッとする" },
+    { category: "家族", text: "家族との関係を人に話すのが恥ずかしい" },
+    { category: "家族", text: "子どもやパートナーに過剰に期待してしまう" },
 
-    .result-box {
-      background-color: #f9f9f9;
-      padding: 20px;
-      border-left: 6px solid #4FB6B2;
-      border-radius: 10px;
-      margin-bottom: 30px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    }
+    { category: "仕事", text: "上司や同僚の評価が異常に気になる" },
+    { category: "仕事", text: "SNSの反応が少ないと不安になる" },
+    { category: "仕事", text: "やらなきゃいけないと分かっていても動けないことが多い" },
+    { category: "仕事", text: "結果が出ないと自分に価値がないと感じる" },
+    { category: "仕事", text: "仕事で成果を出しても満たされない" },
 
-    .result-box h2 {
-      font-size: 1.2rem;
-      margin-bottom: 10px;
-      color: #4FB6B2;
-    }
+    { category: "物質", text: "ストレスが溜まると衝動買いしてしまう" },
+    { category: "物質", text: "持ち物が多すぎて片付かない" },
+    { category: "物質", text: "ブランドや高価なものに惹かれる" },
+    { category: "物質", text: "自分へのご褒美がやめられない" },
+    { category: "物質", text: "物を手放すのが苦手" },
 
-    .stars {
-      font-size: 2rem;
-      color: #4FB6B2;
-      text-align: center;
-      margin-bottom: 10px;
-    }
+    { category: "過去", text: "あの時こうしていれば…とよく思い返す" },
+    { category: "過去", text: "昔の自分と比べて落ち込むことがある" },
+    { category: "過去", text: "後悔している出来事を誰かに言えずにいる" },
+    { category: "過去", text: "過去の失敗を引きずってしまう" },
+    { category: "過去", text: "過去の栄光にしがみついている自分がいる" },
 
-    .description {
-      font-size: 0.95rem;
-      color: #444;
-      line-height: 1.6;
-    }
+    { category: "全体", text: "気づけば同じ悩みを繰り返している" },
+    { category: "全体", text: "変わりたいと思っても行動に移せない" },
+    { category: "全体", text: "何かにすがりたくなる瞬間がある" },
+    { category: "全体", text: "「どうせ私なんて」が口癖になっている" },
+    { category: "全体", text: "自分の本音がわからなくなることがある" }
+  ];
 
-    @media screen and (max-width: 480px) {
-      .title {
-        font-size: 1.5rem;
+  let currentQuestion = 0;
+  let score = 0;
+
+  function renderQuestion() {
+    quiz.innerHTML = "";
+    if (currentQuestion >= questions.length) {
+      quiz.style.display = "none";
+      result.style.display = "block";
+      scoreDisplay.textContent = `${score} 点`;
+      if (score <= 30) {
+        resultMessage.textContent = "執着度は低め。自由度高めなあなた！";
+      } else if (score <= 60) {
+        resultMessage.textContent = "執着傾向あり。手放す意識を持って◎";
+      } else {
+        resultMessage.textContent = "執着強め。もっと自分を大切にして！";
       }
-
-      .stars {
-        font-size: 1.8rem;
-      }
-
-      .result-box h2 {
-        font-size: 1.1rem;
-      }
+      return;
     }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1 class="title">執着チェック</h1>
-    <div class="bar"></div>
 
-    <div class="result-box">
-      <h2>あなたの執着度は</h2>
-      <div class="stars">★★★☆☆</div>
-      <div class="description">
-        あなたの中には「手放したいのに手放せない」思いが潜んでいます。<br><br>
-        表面上は冷静を装っていても、<br>
-        深いところで“過去”や“誰か”に引っ張られている感覚があるかもしれません。<br><br>
-        まずは「執着がある」と認めること。<br>
-        それだけで、楽になれる一歩が始まります。
-      </div>
-    </div>
-  </div>
-</body>
-</html>
+    const q = questions[currentQuestion];
+
+    const categoryHeader = document.createElement("div");
+    categoryHeader.className = "category-header";
+    categoryHeader.textContent = q.category;
+
+    const container = document.createElement("div");
+    container.className = "question-container";
+    container.appendChild(categoryHeader);
+
+    const questionText = document.createElement("p");
+    questionText.textContent = q.text;
+    container.appendChild(questionText);
+
+    ["まったくない", "少しある", "すごくある"].forEach((choice, index) => {
+      const option = document.createElement("div");
+      option.className = "option";
+      option.textContent = choice;
+      option.addEventListener("click", () => {
+        if (index === 1) score += 2;
+        if (index === 2) score += 3;
+        currentQuestion++;
+        progressFill.style.width = `${(currentQuestion / questions.length) * 100}%`;
+        renderQuestion();
+      });
+      container.appendChild(option);
+    });
+
+    quiz.appendChild(container);
+  }
+
+  renderQuestion();
+</script>
