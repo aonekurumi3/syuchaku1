@@ -6,78 +6,39 @@
   <title>執着チェック</title>
   <style>
     body {
-      font-family: 'Noto Sans JP', sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans JP', sans-serif;
       margin: 0;
-      padding: 0;
-      background-color: #fff;
+      padding: 10px;
+      background-color: #f8f9fa;
       color: #333;
+      line-height: 1.6;
     }
     .container {
-      max-width: 480px;
+      max-width: 100%;
       margin: 0 auto;
-      padding: 20px;
+      padding: 15px;
     }
     .title {
-      font-size: 1.6rem;
+      font-size: 1.8rem;
       font-weight: bold;
       color: #4FB6B2;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       line-height: 1.3;
-      word-break: break-word;
       text-align: center;
     }
     .subtitle {
       color: #666;
-      font-size: 0.95rem;
+      font-size: 1rem;
       text-align: center;
-      margin-bottom: 20px;
-    }
-    .bar {
-      height: 6px;
-      background-color: #4FB6B2;
-      width: 100%;
-      border-radius: 4px;
-      margin-bottom: 20px;
-    }
-    .category-header {
-      padding: 10px;
-      font-weight: bold;
-      background: linear-gradient(135deg, #4FB6B2, #3CAAA6);
-      color: white;
-      border-radius: 6px;
-      margin-bottom: 10px;
-    }
-    .question-container {
       margin-bottom: 25px;
-      padding: 20px;
-      background: #f9f9f9;
-      border-radius: 10px;
-      border-left: 4px solid #4FB6B2;
-    }
-    .option {
-      padding: 10px;
-      margin: 8px 0;
-      border: 2px solid #ccc;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .option:hover {
-      border-color: #4FB6B2;
-      background: #e0f7f7;
-    }
-    .option.selected {
-      border-color: #4FB6B2;
-      background: #4FB6B2;
-      color: white;
     }
     .progress {
       width: 100%;
       background: #eee;
-      height: 10px;
+      height: 8px;
       border-radius: 5px;
       overflow: hidden;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
     }
     .progress-fill {
       background: linear-gradient(90deg, #4FB6B2, #3CAAA6);
@@ -85,26 +46,121 @@
       width: 0%;
       transition: width 0.3s ease;
     }
+    .category-header {
+      padding: 12px 16px;
+      font-weight: bold;
+      background: linear-gradient(135deg, #4FB6B2, #3CAAA6);
+      color: white;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      text-align: center;
+      font-size: 1.1rem;
+    }
+    .question-container {
+      margin-bottom: 30px;
+      padding: 20px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border-left: 4px solid #4FB6B2;
+    }
+    .question-text {
+      font-size: 1.1rem;
+      color: #333;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    .option {
+      padding: 15px 20px;
+      margin: 12px 0;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 1rem;
+      text-align: center;
+      background: white;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    .option:hover,
+    .option:active {
+      border-color: #4FB6B2;
+      background: #f0fffe;
+      transform: translateY(-1px);
+    }
+    .option.selected {
+      border-color: #4FB6B2;
+      background: #4FB6B2;
+      color: white;
+    }
+    .result-section {
+      text-align: center;
+      padding: 20px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
     .result-score {
-      font-size: 3rem;
+      font-size: 3.5rem;
       font-weight: bold;
       color: #4FB6B2;
-      text-align: center;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
+    }
+    .stars {
+      font-size: 2.5rem;
+      color: #F5A623;
+      margin-bottom: 20px;
     }
     #result-message {
-      text-align: center;
-      font-size: 1rem;
+      font-size: 1.1rem;
       color: #444;
-      line-height: 1.6;
+      line-height: 1.7;
       padding: 0 10px;
       margin-bottom: 30px;
     }
-    .stars {
-      text-align: center;
-      font-size: 2rem;
-      color: #F5A623;
-      margin-bottom: 10px;
+    
+    /* スマホ対応追加 */
+    @media (max-width: 480px) {
+      .title {
+        font-size: 1.6rem;
+      }
+      .question-container {
+        padding: 15px;
+        margin-bottom: 25px;
+      }
+      .question-text {
+        font-size: 1rem;
+      }
+      .option {
+        padding: 12px 15px;
+        font-size: 0.95rem;
+      }
+      .result-score {
+        font-size: 3rem;
+      }
+      .stars {
+        font-size: 2rem;
+      }
+      #result-message {
+        font-size: 1rem;
+      }
+    }
+    
+    /* より小さなスマホ対応 */
+    @media (max-width: 360px) {
+      .container {
+        padding: 10px;
+      }
+      .title {
+        font-size: 1.4rem;
+      }
+      .subtitle {
+        font-size: 0.9rem;
+      }
+      .result-score {
+        font-size: 2.5rem;
+      }
     }
   </style>
 </head>
@@ -112,15 +168,16 @@
   <div class="container">
     <h1 class="title">執着チェック</h1>
     <p class="subtitle">30問でわかる、あなたの執着傾向</p>
-    <div class="bar"></div>
     <div class="progress">
       <div class="progress-fill" id="progress-fill"></div>
     </div>
     <div id="quiz"></div>
     <div id="result" style="display:none">
-      <h2 class="result-score" id="score"></h2>
-      <div class="stars" id="stars"></div>
-      <p id="result-message"></p>
+      <div class="result-section">
+        <h2 class="result-score" id="score"></h2>
+        <div class="stars" id="stars"></div>
+        <p id="result-message"></p>
+      </div>
     </div>
   </div>
   <script>
@@ -132,42 +189,42 @@
     const progressFill = document.getElementById("progress-fill");
 
     const questions = [
-  { category: "恋愛", text: "1. 相手の行動が気になりすぎてSNSを何度もチェックしてしまう" },
-  { category: "恋愛", text: "2. LINEの既読・未読で感情が大きく動いてしまう" },
-  { category: "恋愛", text: "3. 元恋人に対して今もモヤモヤした気持ちがある" },
-  { category: "恋愛", text: "4. 好きな人の言動に一喜一憂してしまう" },
-  { category: "恋愛", text: "5. 相手を試すような言動をしてしまう" },
+      { category: "恋愛", text: "1. 相手の行動が気になりすぎてSNSを何度もチェックしてしまう" },
+      { category: "恋愛", text: "2. LINEの既読・未読で感情が大きく動いてしまう" },
+      { category: "恋愛", text: "3. 元恋人に対して今もモヤモヤした気持ちがある" },
+      { category: "恋愛", text: "4. 好きな人の言動に一喜一憂してしまう" },
+      { category: "恋愛", text: "5. 相手を試すような言動をしてしまう" },
 
-  { category: "家族", text: "6. 家族にもっと感謝してほしいと感じることが多い" },
-  { category: "家族", text: "7. 親の価値観に縛られていると感じる" },
-  { category: "家族", text: "8. 兄弟姉妹と比較されるとイラッとする" },
-  { category: "家族", text: "9. 家族との関係を人に話すのが恥ずかしい" },
-  { category: "家族", text: "10. 子どもやパートナーに過剰に期待してしまう" },
+      { category: "家族", text: "6. 家族にもっと感謝してほしいと感じることが多い" },
+      { category: "家族", text: "7. 親の価値観に縛られていると感じる" },
+      { category: "家族", text: "8. 兄弟姉妹と比較されるとイラッとする" },
+      { category: "家族", text: "9. 家族との関係を人に話すのが恥ずかしい" },
+      { category: "家族", text: "10. 子どもやパートナーに過剰に期待してしまう" },
 
-  { category: "仕事", text: "11. 上司や同僚の評価が異常に気になる" },
-  { category: "仕事", text: "12. SNSの反応が少ないと不安になる" },
-  { category: "仕事", text: "13. やらなきゃいけないと分かっていても動けないことが多い" },
-  { category: "仕事", text: "14. 結果が出ないと自分に価値がないと感じる" },
-  { category: "仕事", text: "15. 仕事で成果を出しても満たされない" },
+      { category: "仕事", text: "11. 上司や同僚の評価が異常に気になる" },
+      { category: "仕事", text: "12. SNSの反応が少ないと不安になる" },
+      { category: "仕事", text: "13. やらなきゃいけないと分かっていても動けないことが多い" },
+      { category: "仕事", text: "14. 結果が出ないと自分に価値がないと感じる" },
+      { category: "仕事", text: "15. 仕事で成果を出しても満たされない" },
 
-  { category: "物質", text: "16. ストレスが溜まると衝動買いしてしまう" },
-  { category: "物質", text: "17. 持ち物が多すぎて片付かない" },
-  { category: "物質", text: "18. ブランドや高価なものに惹かれる" },
-  { category: "物質", text: "19. 自分へのご褒美がやめられない" },
-  { category: "物質", text: "20. 物を手放すのが苦手" },
+      { category: "物質", text: "16. ストレスが溜まると衝動買いしてしまう" },
+      { category: "物質", text: "17. 持ち物が多すぎて片付かない" },
+      { category: "物質", text: "18. ブランドや高価なものに惹かれる" },
+      { category: "物質", text: "19. 自分へのご褒美がやめられない" },
+      { category: "物質", text: "20. 物を手放すのが苦手" },
 
-  { category: "過去", text: "21. あの時こうしていれば…とよく思い返す" },
-  { category: "過去", text: "22. 昔の自分と比べて落ち込むことがある" },
-  { category: "過去", text: "23. 後悔している出来事を誰かに言えずにいる" },
-  { category: "過去", text: "24. 過去の失敗を引きずってしまう" },
-  { category: "過去", text: "25. 過去の栄光にしがみついている自分がいる" },
+      { category: "過去", text: "21. あの時こうしていれば…とよく思い返す" },
+      { category: "過去", text: "22. 昔の自分と比べて落ち込むことがある" },
+      { category: "過去", text: "23. 後悔している出来事を誰かに言えずにいる" },
+      { category: "過去", text: "24. 過去の失敗を引きずってしまう" },
+      { category: "過去", text: "25. 過去の栄光にしがみついている自分がいる" },
 
-  { category: "全体", text: "26. 気づけば同じ悩みを繰り返している" },
-  { category: "全体", text: "27. 変わりたいと思っても行動に移せない" },
-  { category: "全体", text: "28. 何かにすがりたくなる瞬間がある" },
-  { category: "全体", text: "29. 「どうせ私なんて」が口癖になっている" },
-  { category: "全体", text: "30. 自分の本音がわからなくなることがある" }
-];
+      { category: "全体", text: "26. 気づけば同じ悩みを繰り返している" },
+      { category: "全体", text: "27. 変わりたいと思っても行動に移せない" },
+      { category: "全体", text: "28. 何かにすがりたくなる瞬間がある" },
+      { category: "全体", text: "29. 「どうせ私なんて」が口癖になっている" },
+      { category: "全体", text: "30. 自分の本音がわからなくなることがある" }
+    ];
 
     let currentQuestion = 0;
     let score = 0;
@@ -185,7 +242,7 @@
             あなたの執着度はかなり低め。<br>
             感情に振り回されず、自分のペースで物事を進められるタイプです。<br><br>
             「執着しない＝冷たい」ではなく、必要な距離感を保ててる証拠。<br>
-            この“心の余白”を、もっと心地よく育てていこう♡
+            この"心の余白"を、もっと心地よく育てていこう♡
           `;
         } else if (score <= 36) {
           starsDisplay.innerHTML = "★★☆☆☆";
@@ -197,9 +254,9 @@
         } else if (score <= 54) {
           starsDisplay.innerHTML = "★★★☆☆";
           resultMessage.innerHTML = `
-            あなたの中に“執着の芽”が育ちつつあります。<br>
+            あなたの中に"執着の芽"が育ちつつあります。<br>
             「分かってるのに気になる」「止めたいけどやっちゃう」<br>
-            そんな“ぐるぐる”を感じてるなら、今が見直すチャンス。<br><br>
+            そんな"ぐるぐる"を感じてるなら、今が見直すチャンス。<br><br>
             でも大丈夫。<br>
             それって、あなたが「本当はもっと自由に生きたい」って思ってる証拠だから♡
           `;
@@ -217,8 +274,8 @@
             あなたの執着度はかなり高め。<br>
             「手放したいのに手放せない」そんな思いが、いくつも積み重なっているかも。<br><br>
             でも、安心して。<br>
-            執着って、弱さじゃなくて “強さ” の裏返しだから。<br>
-            この診断が、その “強さ” を「自由さ」に変えるきっかけになりますように♡
+            執着って、弱さじゃなくて "強さ" の裏返しだから。<br>
+            この診断が、その "強さ" を「自由さ」に変えるきっかけになりますように♡
           `;
         }
         return;
@@ -235,6 +292,7 @@
       container.appendChild(categoryHeader);
 
       const questionText = document.createElement("p");
+      questionText.className = "question-text";
       questionText.textContent = q.text;
       container.appendChild(questionText);
 
