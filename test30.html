@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>執着チェック</title>
   <style>
     body {
@@ -12,13 +12,11 @@
       background-color: #fff;
       color: #333;
     }
-
     .container {
       max-width: 480px;
       margin: 0 auto;
       padding: 20px;
     }
-
     .title {
       font-size: 1.6rem;
       font-weight: bold;
@@ -28,14 +26,12 @@
       word-break: break-word;
       text-align: center;
     }
-
     .subtitle {
       color: #666;
       font-size: 0.95rem;
       text-align: center;
       margin-bottom: 20px;
     }
-
     .bar {
       height: 6px;
       background-color: #4FB6B2;
@@ -43,7 +39,6 @@
       border-radius: 4px;
       margin-bottom: 20px;
     }
-
     .category-header {
       padding: 10px;
       font-weight: bold;
@@ -52,7 +47,6 @@
       border-radius: 6px;
       margin-bottom: 10px;
     }
-
     .question-container {
       margin-bottom: 25px;
       padding: 20px;
@@ -60,7 +54,6 @@
       border-radius: 10px;
       border-left: 4px solid #4FB6B2;
     }
-
     .option {
       padding: 10px;
       margin: 8px 0;
@@ -69,18 +62,15 @@
       cursor: pointer;
       transition: 0.2s;
     }
-
     .option:hover {
       border-color: #4FB6B2;
       background: #e0f7f7;
     }
-
     .option.selected {
       border-color: #4FB6B2;
       background: #4FB6B2;
       color: white;
     }
-
     .progress {
       width: 100%;
       background: #eee;
@@ -89,14 +79,12 @@
       overflow: hidden;
       margin-bottom: 30px;
     }
-
     .progress-fill {
       background: linear-gradient(90deg, #4FB6B2, #3CAAA6);
       height: 100%;
       width: 0%;
       transition: width 0.3s ease;
     }
-
     .result-score {
       font-size: 3rem;
       font-weight: bold;
@@ -104,7 +92,6 @@
       text-align: center;
       margin-bottom: 20px;
     }
-
     #result-message {
       text-align: center;
       font-size: 1rem;
@@ -118,19 +105,15 @@
     <h1 class="title">執着チェック</h1>
     <p class="subtitle">30問でわかる、あなたの執着傾向</p>
     <div class="bar"></div>
-
     <div class="progress">
       <div class="progress-fill" id="progress-fill"></div>
     </div>
-
     <div id="quiz"></div>
-
     <div id="result" style="display:none">
       <h2 class="result-score" id="score"></h2>
       <p id="result-message"></p>
     </div>
   </div>
-
   <script>
     const quiz = document.getElementById("quiz");
     const result = document.getElementById("result");
@@ -139,41 +122,41 @@
     const progressFill = document.getElementById("progress-fill");
 
     const questions = [
-      { category: "恋愛", text: "相手の行動が気になりすぎてSNSを何度もチェックしてしまう" },
-      { category: "恋愛", text: "LINEの既読・未読で感情が大きく動いてしまう" },
-      { category: "恋愛", text: "元恋人に対して今もモヤモヤした気持ちがある" },
-      { category: "恋愛", text: "好きな人の言動に一喜一憂してしまう" },
-      { category: "恋愛", text: "相手を試すような言動をしてしまう" },
+      { category: "恋愛", text: "1. 相手の行動が気になりすぎてSNSを何度もチェックしてしまう" },
+      { category: "恋愛", text: "2. LINEの既読・未読で感情が大きく動いてしまう" },
+      { category: "恋愛", text: "3. 元恋人に対して今もモヤモヤした気持ちがある" },
+      { category: "恋愛", text: "4. 好きな人の言動に一喜一憂してしまう" },
+      { category: "恋愛", text: "5. 相手を試すような言動をしてしまう" },
 
-      { category: "家族", text: "家族にもっと感謝してほしいと感じることが多い" },
-      { category: "家族", text: "親の価値観に縛られていると感じる" },
-      { category: "家族", text: "兄弟姉妹と比較されるとイラッとする" },
-      { category: "家族", text: "家族との関係を人に話すのが恥ずかしい" },
-      { category: "家族", text: "子どもやパートナーに過剰に期待してしまう" },
+      { category: "家族", text: "6. 家族にもっと感謝してほしいと感じることが多い" },
+      { category: "家族", text: "7. 親の価値観に縛られていると感じる" },
+      { category: "家族", text: "8. 兄弟姉妹と比較されるとイラッとする" },
+      { category: "家族", text: "9. 家族との関係を人に話すのが恥ずかしい" },
+      { category: "家族", text: "10. 子どもやパートナーに過剰に期待してしまう" },
 
-      { category: "仕事", text: "上司や同僚の評価が異常に気になる" },
-      { category: "仕事", text: "SNSの反応が少ないと不安になる" },
-      { category: "仕事", text: "やらなきゃいけないと分かっていても動けないことが多い" },
-      { category: "仕事", text: "結果が出ないと自分に価値がないと感じる" },
-      { category: "仕事", text: "仕事で成果を出しても満たされない" },
+      { category: "仕事", text: "11. 上司や同僚の評価が異常に気になる" },
+      { category: "仕事", text: "12. SNSの反応が少ないと不安になる" },
+      { category: "仕事", text: "13. やらなきゃいけないと分かっていても動けないことが多い" },
+      { category: "仕事", text: "14. 結果が出ないと自分に価値がないと感じる" },
+      { category: "仕事", text: "15. 仕事で成果を出しても満たされない" },
 
-      { category: "物質", text: "ストレスが溜まると衝動買いしてしまう" },
-      { category: "物質", text: "持ち物が多すぎて片付かない" },
-      { category: "物質", text: "ブランドや高価なものに惹かれる" },
-      { category: "物質", text: "自分へのご褒美がやめられない" },
-      { category: "物質", text: "物を手放すのが苦手" },
+      { category: "物質", text: "16. ストレスが溜まると衝動買いしてしまう" },
+      { category: "物質", text: "17. 持ち物が多すぎて片付かない" },
+      { category: "物質", text: "18. ブランドや高価なものに惹かれる" },
+      { category: "物質", text: "19. 自分へのご褒美がやめられない" },
+      { category: "物質", text: "20. 物を手放すのが苦手" },
 
-      { category: "過去", text: "あの時こうしていれば…とよく思い返す" },
-      { category: "過去", text: "昔の自分と比べて落ち込むことがある" },
-      { category: "過去", text: "後悔している出来事を誰かに言えずにいる" },
-      { category: "過去", text: "過去の失敗を引きずってしまう" },
-      { category: "過去", text: "過去の栄光にしがみついている自分がいる" },
+      { category: "過去", text: "21. あの時こうしていれば…とよく思い返す" },
+      { category: "過去", text: "22. 昔の自分と比べて落ち込むことがある" },
+      { category: "過去", text: "23. 後悔している出来事を誰かに言えずにいる" },
+      { category: "過去", text: "24. 過去の失敗を引きずってしまう" },
+      { category: "過去", text: "25. 過去の栄光にしがみついている自分がいる" },
 
-      { category: "全体", text: "気づけば同じ悩みを繰り返している" },
-      { category: "全体", text: "変わりたいと思っても行動に移せない" },
-      { category: "全体", text: "何かにすがりたくなる瞬間がある" },
-      { category: "全体", text: "「どうせ私なんて」が口癖になっている" },
-      { category: "全体", text: "自分の本音がわからなくなることがある" }
+      { category: "全体", text: "26. 気づけば同じ悩みを繰り返している" },
+      { category: "全体", text: "27. 変わりたいと思っても行動に移せない" },
+      { category: "全体", text: "28. 何かにすがりたくなる瞬間がある" },
+      { category: "全体", text: "29. 「どうせ私なんて」が口癖になっている" },
+      { category: "全体", text: "30. 自分の本音がわからなくなることがある" }
     ];
 
     let currentQuestion = 0;
