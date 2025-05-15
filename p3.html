@@ -1,279 +1,100 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>無限解放プログラム | パターンC</title>
-    <style>
-        body {
-            font-family: Noto Sans JP, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background: #fff;
-            color: #333;
-        }
-        
-        .container {
-            max-width: 375px;
-            margin: 0 auto;
-            background: white;
-            min-height: 100vh;
-        }
-        
-        /* ファーストビュー */
-        .hero {
-            background: linear-gradient(145deg, #ffecd1 0%, #fcb69f 100%);
-            padding: 40px 20px 30px;
-            text-align: center;
-            position: relative;
-        }
-        
-        /* 小さなバッジ風要素 */
-        .badge {
-            display: inline-block;
-            background: #fff;
-            color: #ff6b6b;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        
-        .hero-title {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 15px;
-            line-height: 1.3;
-        }
-        
-        .hero-subtitle {
-            font-size: 1rem;
-            color: #555;
-            margin-bottom: 30px;
-        }
-        
-        /* 共感セクション */
-        .empathy {
-            padding: 30px 20px;
-            background: #f9f9f9;
-        }
-        
-        .section-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 20px;
-            color: #333;
-        }
-        
-        .pain-list {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .pain-list li {
-            padding: 12px 15px;
-            margin-bottom: 10px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            position: relative;
-            padding-left: 50px;
-        }
-        
-        .pain-list li::before {
-            content: "💔";
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-        
-        /* 解決策セクション */
-        .solution {
-            padding: 30px 20px;
-            background: #fff;
-        }
-        
-        .highlight-box {
-            background: linear-gradient(135deg, #fef7f0 0%, #fff5ee 100%);
-            padding: 25px;
-            border-radius: 10px;
-            text-align: center;
-            border: 2px solid #ffd1c1;
-            margin-bottom: 20px;
-        }
-        
-        .highlight-text {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #d2691e;
-            margin-bottom: 10px;
-        }
-        
-        .highlight-sub {
-            font-size: 0.9rem;
-            color: #666;
-        }
-        
-        /* 特典セクション */
-        .offer {
-            padding: 20px;
-            background: #fff8f0;
-            border: 3px solid #ff9a9e;
-            border-radius: 15px;
-            margin: 20px;
-            text-align: center;
-        }
-        
-        .offer-badge {
-            background: #ff6b6b;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 15px;
-        }
-        
-        .offer-title {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: #ff6600;
-            margin-bottom: 10px;
-        }
-        
-        .offer-subtitle {
-            font-size: 0.95rem;
-            color: #666;
-            margin-bottom: 10px;
-        }
-        
-        .offer-note {
-            font-size: 0.8rem;
-            color: #999;
-        }
-        
-        /* CTAボタン */
-        .cta-section {
-            padding: 30px 20px;
-            text-align: center;
-        }
-        
-        .cta-button {
-            display: block;
-            width: 100%;
-            padding: 18px;
-            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-size: 1.3rem;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .cta-button::before {
-            content: '📱';
-            margin-right: 8px;
-        }
-        
-        /* 装飾要素 */
-        .floating-element {
-            position: absolute;
-            opacity: 0.1;
-            pointer-events: none;
-        }
-        
-        .hearts {
-            position: absolute;
-            top: 50%;
-            left: 10px;
-            font-size: 2rem;
-        }
-        
-        .circles {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            width: 50px;
-            height: 50px;
-            border: 2px solid #ffd1c1;
-            border-radius: 50%;
-        }
-        
-        /* 信頼性要素 */
-        .trust {
-            text-align: center;
-            font-size: 0.85rem;
-            color: #999;
-            margin-top: 15px;
-        }
-        
-        /* レスポンシブ対応 */
-        @media (max-width: 320px) {
-            .hero-title {
-                font-size: 1.6rem;
-            }
-            .offer-title {
-                font-size: 1.2rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>無限解放プログラム | パターンC</title>
+  <style>
+    body { font-family: Noto Sans JP, sans-serif; line-height: 1.6; margin: 0; padding: 0; background: #fff; color: #333; }
+    .container { max-width: 375px; margin: 0 auto; background: white; min-height: 100vh; }
+    .hero { background: linear-gradient(145deg, #ffecd1 0%, #fcb69f 100%); padding: 40px 20px 30px; text-align: center; position: relative; }
+    .badge { display: inline-block; background: #fff; color: #ff6b6b; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 20px; }
+    .hero-title { font-size: 1.8rem; font-weight: bold; color: #333; margin-bottom: 15px; line-height: 1.3; }
+    .hero-subtitle { font-size: 1rem; color: #555; margin-bottom: 30px; }
+    .empathy { padding: 30px 20px; background: #f9f9f9; }
+    .section-title { font-size: 1.2rem; font-weight: bold; text-align: center; margin-bottom: 20px; color: #333; }
+    .pain-list { list-style: none; padding: 0; }
+    .pain-list li { padding: 12px 15px; margin-bottom: 10px; background: #fff; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); position: relative; padding-left: 50px; }
+    .pain-list li::before { content: "💔"; position: absolute; left: 15px; top: 50%; transform: translateY(-50%); }
+    .solution { padding: 30px 20px; background: #fff; }
+    .highlight-box { background: linear-gradient(135deg, #fef7f0 0%, #fff5ee 100%); padding: 25px; border-radius: 10px; text-align: center; border: 2px solid #ffd1c1; margin-bottom: 20px; }
+    .highlight-text { font-size: 1.3rem; font-weight: bold; color: #d2691e; margin-bottom: 10px; }
+    .highlight-sub { font-size: 0.9rem; color: #666; }
+    .offer { padding: 20px; background: #fff8f0; border: 3px solid #ff9a9e; border-radius: 15px; margin: 20px; text-align: center; }
+    .offer-badge { background: #ff6b6b; color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; font-weight: bold; display: inline-block; margin-bottom: 15px; }
+    .offer-title { font-size: 1.4rem; font-weight: bold; color: #ff6600; margin-bottom: 10px; }
+    .offer-subtitle { font-size: 0.95rem; color: #666; margin-bottom: 10px; }
+    .offer-note { font-size: 0.8rem; color: #999; }
+    .cta-section { padding: 30px 20px; text-align: center; }
+    .cta-button { display: block; width: 100%; padding: 18px; background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%); color: white; text-decoration: none; border-radius: 50px; font-size: 1.3rem; font-weight: bold; box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3); position: relative; overflow: hidden; }
+    .cta-button::before { content: '📱'; margin-right: 8px; }
+    .floating-element { position: absolute; opacity: 0.1; pointer-events: none; }
+    .hearts { position: absolute; top: 50%; left: 10px; font-size: 2rem; }
+    .circles { position: absolute; bottom: 10px; right: 10px; width: 50px; height: 50px; border: 2px solid #ffd1c1; border-radius: 50%; }
+    .trust { text-align: center; font-size: 0.85rem; color: #999; margin-top: 15px; }
+    @media (max-width: 320px) {
+      .hero-title { font-size: 1.6rem; }
+      .offer-title { font-size: 1.2rem; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="hero">
-            <div class="floating-element hearts">💔</div>
-            <div class="floating-element circles"></div>
-            
-            <div class="badge">15,000件の実績から</div>
-            <h1 class="hero-title">無限解放プログラム</h1>
-            <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px;">〜15,000件の実績から導き出した、苦しみから自由になる方法〜</p>
-            <p class="hero-subtitle">経済的に成功していても、<br>なぜ「あの人」を手放せないの？</p>
-        </div>
-        
-        <div class="empathy">
-            <h2 class="section-title">こんな呟き、心当たりありませんか？</h2>
-            <ul class="pain-list">
-                <li>「自活できるくらい稼いでるのに、彼がいないと不安...」</li>
-                <li>「また占いばっかりして、離れられない」</li>
-                <li>「子供の送迎、夕飯、仕事の資料...私しかやる人いない」</li>
-                <li>「今度こそ別れるって言ったのに、また連絡しちゃった」</li>
-                <li>「既読無視5時間...寝る前も起きた瞬間もスマホ確認してる」</li>
-                <li>「また買い物してる...冷蔵庫パンパンなのに食べちゃう」</li>
-                <li>「なんで手に入れても幸せになれない...何が足りないの？」</li>
-            </ul>
-        </div>
-        
-        <div class="solution">
-            <div class="highlight-box">
-                <div class="highlight-text">占いジプシーで求め続けた「彼の愛」の正体</div>
-                <div class="highlight-sub">毎日占いやり続けて、<br>やっと見えた真実がありました。</div>
-            </div>
-            
-            <p style="text-align: center; line-height: 1.8; font-size: 1rem;">あなたが本当に欲しかったのは<br>「彼からの愛」じゃない。<br><br>彼が持っている<br>「自由に生きる力」「自分を大切にする力」<br>「誰にも依存しない強さ」<br><br>それに憧れていただけ。<br><br>でも、その力は<br>実はあなたの中にずっとあった。<br><br>15,000件以上の相談実績から<br>見えてきた共通パターン。<br><br>心理学・量子力学・古代哲学から<br>導き出した"解放メソッド"を<br>プログラムに形にしています。</p>
-        </div>
-        
-        <div class="offer">
-            <div class="offer-badge">🎁 LINE登録者限定プレゼント</div>
-            <div class="offer-title">"執着度チェックテスト"</div>
-            <div class="offer-subtitle">恋愛・家族・仕事・物質・過去の5分野<br>たった5分で回答、30問の本格診断</div>
-            <div class="offer-note">※登録後すぐに始められます</div>
-        </div>
-        
-        <div class="cta-section">
-            <a href="#" class="cta-button" onclick="alert('LINE公式アカウントに遷移します')">
-                LINEで無料受け取り
-            </a>
-            <div class="trust">多くの方が一歩を踏み出しています</div>
-        </div>
+  <div class="container">
+    <div class="hero">
+      <div class="floating-element hearts">💔</div>
+      <div class="floating-element circles"></div>
+      <div class="badge">15,000件の実績から</div>
+      <h1 class="hero-title">無限解放プログラム</h1>
+      <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px;">〜15,000件の実績から導き出した、苦しみから自由になる方法〜</p>
+      <p class="hero-subtitle">経済的に成功していても、<br>なぜ「あの人」を手放せないの？</p>
     </div>
+
+    <div class="empathy">
+      <h2 class="section-title">こんな呟き、心当たりありませんか？</h2>
+      <ul class="pain-list">
+        <li>「自活できるくらい稼いでるのに、彼がいないと不安...」</li>
+        <li>「また占いばっかりして、離れられない」</li>
+        <li>「子供の送迎、夕飯、仕事の資料...私しかやる人いない」</li>
+        <li>「今度こそ別れるって言ったのに、また連絡しちゃった」</li>
+        <li>「既読無視5時間...寝る前も起きた瞬間もスマホ確認してる」</li>
+        <li>「また買い物してる...冷蔵庫パンパンなのに食べちゃう」</li>
+        <li>「なんで手に入れても幸せになれない...何が足りないの？」</li>
+      </ul>
+    </div>
+
+    <div class="solution">
+      <div class="highlight-box">
+        <div class="highlight-text">占いジプシーで求め続けた「彼の愛」の正体</div>
+        <div class="highlight-sub">毎日占いやり続けて、<br>やっと見えた真実がありました。</div>
+      </div>
+      <p style="text-align: center; line-height: 1.8; font-size: 1rem;">
+        あなたが本当に欲しかったのは<br>
+        「彼からの愛」じゃない。<br><br>
+        彼が持っている<br>
+        「自由に生きる力」「自分を大切にする力」<br>
+        「誰にも依存しない強さ」<br><br>
+        それに憧れていただけ。<br><br>
+        でも、その力は<br>
+        実はあなたの中にずっとあった。<br><br>
+        15,000件以上の相談実績から<br>
+        見えてきた共通パターン。<br><br>
+        心理学・量子力学・古代哲学から<br>
+        導き出した"解放メソッド"を<br>
+        プログラムに形にしています。
+      </p>
+    </div>
+
+    <div class="offer">
+      <div class="offer-badge">🎁 LINE登録者限定プレゼント</div>
+      <div class="offer-title">"執着度チェックテスト"</div>
+      <div class="offer-subtitle">恋愛・家族・仕事・物質・過去の5分野<br>たった5分で回答、30問の本格診断</div>
+      <div class="offer-note">※登録後すぐに始められます</div>
+    </div>
+
+    <div class="cta-section">
+      <a href="https://lin.ee/f6sHzWL" class="cta-button">LINEで無料受け取り</a>
+      <div class="trust">多くの方が一歩を踏み出しています</div>
+    </div>
+  </div>
 </body>
 </html>
