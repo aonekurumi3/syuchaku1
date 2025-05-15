@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>執着度チェックテスト</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f7;
+            line-height: 1.6;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 1rem;
+        }
+        .question-container {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            border-left: 4px solid #007AFF;
+        }
+        .question-number {
+            font-size: 0.9rem;
+            color: #007AFF;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .question-text {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .options {
+            display: flex;
+            gap: 10px;
+        }
+        .option {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+        .option:hover {
+            border-color: #007AFF;
+            background: #f0f8ff;
+        }
+        .option.selected {
+            border-color: #007AFF;
+            background: #007AFF;
+            color: white;
+        }
+        .category-header {
+            background: linear-gradient(135deg, #007AFF, #0051D5);
+            color: white;
+            padding: 15px;
+            margin: 30px -30px 20px -30px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .progress-bar {
+            background: #e0e0e0;
+            border-radius: 10px;
+            height: 8px;
+            margin-bottom: 20px;
+        }
+        .progress-fill {
+            background: linear-gradient(90deg, #007AFF, #0051D5);
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.3s;
+        }
+        .result-section {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #f0f8ff, #e6f3ff);
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+        .result-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .result-score {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #007AFF;
+            margin-bottom: 20px;
+        }
+        .result-description {
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.8;
+        }
+        .category-scores {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .category-score {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .submit-btn {
+            background: linear-gradient(135deg, #007AFF, #0051D5);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 30px;
+            transition: transform 0.2s;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">執着度チェックテスト</h1>
+            <p class="subtitle">5分で分かる！あなたの執着度を30問で診断</p>
+        </div>
+        
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressBar"></div>
+        </div>
+        
+        <form id="testForm">
+            <div class="category-header">💕 恋愛・人間関係編</div>
+            
+            <div class="question-container">
+                <div class="question-number">Q1</div>
+                <div class="question-text">LINEの返信が来ないと、何度も携帯をチェックしてしまう</div>
+                <div class="options">
+                    <div class="option" data-value="2">はい</div>
+                    <div class="option" data-value="0">いいえ</div>
+                </div>
+            </div>
+            
+            <div class="question-container">
+                <div class="question-number">Q2</div>
+                <div class="question-text">過去の会話を何度も思い返して「なぜあの時...」と考える</div>
+                <div class="options">
+                    <div class="option" data-value="2">はい</div>
+                    <div class="option" data-value="0">いいえ</div>
+                </div>
+            </div>
+            
+            <div class="question-container">
+                <div class="question-number">Q3</div>
+                <div class="question-text">相手の言動から隠された意味を読み取ろうとして疲れる</div>
+                <div class="options">
+                    <div class="option" data-value="2">はい</div>
+                    <div class="option" data-value="0">いいえ</div>
+                </div>
+            </div>
+            
+            <div class="question-container">
+                <div class="question-number">Q4</div>
+                <div class="question-text">好きな人が他の人と楽しそうにしているのを見ると辛い</div>
+                <div class="options">
+                    <div class="option" data-value="2">はい</div>
+                    <div class="option" data-value="0">いいえ</div>
+                </div>
+            </div>
+            
+            <div class="question-container">
+                <div class="question-number">Q5</div>
+                <div class="question-text">「もしあの時こうしていれば」というif思考が止まらない</div>
+                <div class="options">
+                    <div class="option" data-value="2">はい</div>
+                    <div class="option" data-value="0">いいえ</div>
+                </div>
+            </div>
+            
+            <div class="question-container">
+                <div class="question-number">Q6</div>
+                <div class="question-text">既読がついているのに返信がないと不安になる</div>
+                <div class="options">
+                    <div class="option" data-value="2">はい</div>
+                    <div class="option" data-value="0">いいえ</div>
+                </div>
+            </div>
+            
+            <div class="category-header">👨‍👩‍👧‍👦 家族・責任編</div>
+            
+            <div class="question-container">
+                <div class="question-number">Q7</div>
+                <div class="question-text">「私がいなければこの家はまわらない」と思っている</div>
+                <div class="options">
+                    <div class="option" data-value="2">はい</div>
+                    <div class="option" data-value="0">いいえ</div>
+                </div>
+            </div>
+            
+            <div class="question-container">
+                <div class="question-number">Q8</div>
+                <div class="question-text">家族のために自分の時間を犠牲にし続けている</div>
+                <div class="options">
+                    <div class="option" data-value="2">はい</div>
+                    <div class="option" data-value="0">いいえ</div>
+                </div>
+            </div>
+            
+            <div class="question-container">
+                <div class="question-number">Q9</div>
+                <div class="question-text">家族が不幸な時、自分の責任のような気がしてしまう</div>
+                <div class="options">
+                    <div class="option" data-value="2">はい</div>
+                    <div class="option" data-value="0">いいえ</div>
+                </div>
+            </div>
+            
+            <div class="question-container">
+                <div class="question-number">Q10</div>
+                <div class="question-text">子どもや家族の行動をコントロールしたくなる</div>
+                <div class="options">
+                    <div class="option" data-value="2">はい</div>
+                    <div class="option" data-value="0">いいえ</div>
+                </div>
+            </div>
+            
+            <div class="question-container">
+                <div class="question-number">Q11</div>
+                <div class="question-text">「家族のため」が口癖だが、実は疲れ果てている</div>
+                <div class="options">
+                    <div class="option" data-value="2">はい</div>
+                    <div class="option" data-value="0">いいえ</div>
+                </div>
+            </div>
+            
+            <div class="question-container">
+                <div class="question-number">Q12</div>
+                <div class="question-text">頼まれてもいないのに先回りして世話を焼いてしまう</div>
+                <div class="options">
+                    <div class="option" data-value="2">はい</div>
+                    <div class="option" data-value="0">いいえ</div>
+                </div>
+            </div>
+            
+            <div class="category-header">💼 仕事・キャリア編</div>
+            
+            <div class="question-container">
+                <div class="question-number">Q13</div>
+                <div class="question-text">仕事で完璧を求めすぎて、時間がかかりすぎる</div>
+                <div class="options">
+                    <div class="option" data-value="2">はい</div>
+                    <div class="option" data-value="0">いいえ</div>
+                </div>
+            </div>
+            
+            <div class="question-container">
+                <div class="question-number">Q14</div>
+                <div class="question-text">昔の肩書きや地位にしがみついている</div>
+                <div class="options">
+                    <div class="option" data-value="2">はい</div>
+                    <div class="option" data-value="0">いいえ</div>
+                </div>
+            </div>
+            
+            <div class="question-container">
+                <div class="question-number">Q15</div>
+                <div class="question-text">他人の評価が気になって、本音が言えない</div>
+                <div class="options">
+                    <div class="option" data-value="2">はい</div>
+                    <div class="option" data-value="0">いいえ</div>
+                </div>
+            </div>
+            
+            <div class="question-container">
+                <div class="question-number">Q16</div>
+                <div class="question-text">同期の出世や成功を素直に喜べない</div>
+                <div class="options">
+                    <div class="option" data-value="2">はい</div>
+                    <div class="option" data-value="0">いいえ</div>
+                </div>
+            </div>
+            
+            <div class="question-container">
+                <div class="question-number">Q17</div>
+                <div class="question-text">転職したくても「このままでいいかも」と動けない</div>
+                <div class="options">
+                    <div class="option" data-value="2">はい</div>
+                    <div class="option" data-value="0">いいえ</div>
+                </div>
+            </div>
+            
+            <div class="question-container">
+                <div class="question-number">Q18</div>
+                <div class="question-text">年収や社会的地位を他人と比較してしまう</div>
+                <div class="options">
+                    <div class="option" data-value="2">はい</div>
+                    <div class="option" data-value="0">いいえ</div>
+                </div>
+            </div>
+            
+            <div class="category-header">💰 物質・お金編</div>
+            
+            <div class="question-container">
+                <div class="question-number">Q19</div>
+                <div class="question-text">もう必要ないのに、捨てることができない物がある</div>
+                <div class="options">
+                    <div class="option" data-value="2">はい</div>
+                    <div class="option" data-value="0">いいえ</div>
+                </div>
+            </div>
+            
+            <div class="question-container">
+                <div class="question-number">Q20</div>
+                <div class="question-text">ブランド品や高価なものに囲まれていないと不安</div>
+                <div class="options">
+                    <div class="option" data-value="2">はい</div>
+                    <div class="option" data-value="0">いいえ</div>
+                </div>
+            </div>
+            
+            <div class="question-container">
+                <div class="question-number">Q21</div>
+                <div class="question-text">クレジットカードの明細を見るのがこわい</div>
+                <div class="options">
+                    <div class="option" data-value="2">はい</div>
+                    <div class="option" data-value="0">いいえ</div>
+                </div>
+            </div>
+            
+            <div class="question-container">
+                <div class="question-number">Q22</div>
+                <div class="question-text">お金がないと愛されないような気がする</div>
+                <div class="options">
+                    <div class="option" data-value="2">はい</div>
+                    <div class="option" data-value="0">いいえ</div>
+                </div>
+            </div>
+            
+            <div class="question-container">
+                <div class="question-number">Q23</div>
+                <div class="question-text">節約しているのに、衝動買いしてしまうことがある</div>
+                <div class="options">
+                    <div class="option" data-value="2">はい</div>
+                    <div class="option" data-value="0">いいえ</div>
+                </div>
+            </div>
+            
+            <div class="question-container">
+                <div class="question-number">Q24</div>
+                <div class="question-text">お金の話をすることに罪悪感を感じる</div>
+                <div class="options">
+                    <div class="option" data-value="2">はい</div>
+                    <div class="option" data-value="0">いいえ</div>
+                </div>
+            </div>
+            
+            <div class="category-header">⏰ 過去・未来編</div>
+            
+            <div class="question-container">
+                <div class="question-number">Q25</div>
+                <div class="question-text">昔の恋人や失恋の痛みがまだ残っている</div>
+                <div class="options">
+                    <div class="option" data-value="2">はい</div>
+                    <div class="option" data-value="0">いいえ</div>
+                </div>
+            </div>
+            
+            <div class="question-container">
+                <div class="question-number">Q26</div>
+                <div class="question-text">「普通」や「こうあるべき」から外れることに不安を感じる</div>
+                <div class="options">
+                    <div class="option" data-value="2">はい</div>
+                    <div class="option" data-value="0">いいえ</div>
+                </div>
+            </div>
+            
+            <div class="question-container">
+                <div class="question-number">Q27</div>
+                <div class="question-text">SNSで昔の友人の近況を頻繁にチェックしてしまう</div>
+                <div class="options">
+                    <div class="option" data-value="2">はい</div>
+                    <div class="option" data-value="0">いいえ</div>
+                </div>
+            </div>
+            
+            <div class="question-container">
+                <div class="question-number">Q28</div>
+                <div class="question-text">将来への不安で夜眠れないことがある</div>
+                <div class="options">
+                    <div class="option" data-value="2">はい</div>
+                    <div class="option" data-value="0">いいえ</div>
+                </div>
+            </div>
+            
+            <div class="question-container">
+                <div class="question-number">Q29</div>
+                <div class="question-text">占いやスピリチュアルに頻繁に頼ってしまう</div>
+                <div class="options">
+                    <div class="option" data-value="2">はい</div>
+                    <div class="option" data-value="0">いいえ</div>
+                </div>
+            </div>
+            
+            <div class="question-container">
+                <div class="question-number">Q30</div>
+                <div class="question-text">「あの時の自分に戻りたい」と思うことがよくある</div>
+                <div class="options">
+                    <div class="option" data-value="2">はい</div>
+                    <div class="option" data-value="0">いいえ</div>
+                </div>
+            </div>
+            
+            <button type="submit" class="submit-btn">結果を見る</button>
+        </form>
+        
+        <div class="result-section" id="resultSection">
+            <h2 class="result-title">あなたの執着度は</h2>
+            <div class="result-score" id="resultScore">★★★☆☆</div>
+            <div class="result-description" id="resultDescription"></div>
+            
+            <div class="category-scores" id="categoryScores"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentQuestion = 0;
+        let answers = [];
+        let categoryScores = {
+            love: { name: '恋愛・人間関係', score: 0, maxScore: 12 },
+            family: { name: '家族・責任', score: 0, maxScore: 12 },
+            work: { name: '仕事・キャリア', score: 0, maxScore: 12 },
+            material: { name: '物質・お金', score: 0, maxScore: 12 },
+            time: { name: '過去・未来', score: 0, maxScore: 12 }
+        };
+        
+        document.getElementById('testForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            calculateResults();
+        });
+        
+        // オプション選択イベント
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', function() {
+                const questionContainer = this.closest('.question-container');
+                const options = questionContainer.querySelectorAll('.option');
+                options.forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                
+                updateProgress();
+            });
+        });
+        
+        function updateProgress() {
+            const answered = document.querySelectorAll('.option.selected').length;
+            const progress = (answered / 30) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+        
+        function calculateResults() {
+            const questions = document.querySelectorAll('.question-container');
+            let totalScore = 0;
+            
+            // カテゴリ別のスコア計算
+            const categoryMapping = {
+                'Q1': 'love', 'Q2': 'love', 'Q3': 'love', 'Q4': 'love', 'Q5': 'love', 'Q6': 'love',
+                'Q7': 'family', 'Q8': 'family', 'Q9': 'family', 'Q10': 'family', 'Q11': 'family', 'Q12': 'family',
+                'Q13': 'work', 'Q14': 'work', 'Q15': 'work', 'Q16': 'work', 'Q17': 'work', 'Q18': 'work',
+                'Q19': 'material', 'Q20': 'material', 'Q21': 'material', 'Q22': 'material', 'Q23': 'material', 'Q24': 'material',
+                'Q25': 'time', 'Q26': 'time', 'Q27': 'time', 'Q28': 'time', 'Q29': 'time', 'Q30': 'time'
+            };
+            
+            questions.forEach((question, index) => {
+                const selected = question.querySelector('.option.selected');
+                if (selected) {
+                    const score = parseInt(selected.dataset.value);
+                    totalScore += score;
+                    
+                    const questionNumber = question.querySelector('.question-number').textContent;
+                    const category = categoryMapping[questionNumber];
+                    categoryScores[category].score += score;
+                }
+            });
+            
+            displayResults(totalScore);
+        }
+        
+        function displayResults(totalScore) {
+            document.getElementById('testForm').style.display = 'none';
+            document.getElementById('resultSection').style.display = 'block';
+            
+            let resultText = '';
+            let stars = '';
+            
+            if (totalScore <= 10) {
+                stars = '★☆☆☆☆';
+                resultText = 'あなたの執着度は比較的低いです。時々感じる「何となくの不安」が、実は小さな執着のサインかもしれません。この状態をキープしながら、より自由な心を目指しましょう。';
+            } else if (totalScore <= 20) {
+                stars = '★★☆☆☆';
+                resultText = '日常の中で執着パターンが現れ始めています。「なぜか疲れる」「なぜかモヤモヤする」という原因は、執着にあるかもしれません。今がちょうど見直しのタイミングです。';
+            } else if (totalScore <= 35) {
+                stars = '★★★☆☆';
+                resultText = '執着が日常生活に影響を与え始めています。思考がグルグル回る、感情のアップダウンが激しい、などの症状が現れている可能性があります。少しずつ手放す練習を始めてみましょう。';
+            } else if (totalScore <= 45) {
+                stars = '★★★★☆';
+                resultText = 'かなり強い執着パターンがあります。この状態が続くと、心身の不調につながる可能性があります。専門的なサポートを検討するか、執着について学び始めることをおすすめします。';
+            } else {
+                stars = '★★★★★';
+                resultText = '執着が人生の大きな負担になっています。この状態を放置すると、うつや不安症などの心理的な問題に発展する可能性があります。一刻も早くサポートを求めることをおすすめします。';
+            }
+            
+            document.getElementById('resultScore').textContent = stars;
+            document.getElementById('resultDescription').textContent = resultText;
+            
+            // カテゴリ別スコア表示
+            const categoryScoresElement = document.getElementById('categoryScores');
+            Object.entries(categoryScores).forEach(([key, category]) => {
+                const percentage = Math.round((category.score / category.maxScore) * 100);
+                const div = document.createElement('div');
+                div.className = 'category-score';
+                div.innerHTML = `
+                    <h4>${category.name}</h4>
+                    <p>${percentage}%</p>
+                `;
+                categoryScoresElement.appendChild(div);
+            });
+            
+            // ページトップにスクロール
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
