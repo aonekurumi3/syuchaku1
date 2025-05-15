@@ -179,7 +179,7 @@
         result.style.display = "block";
         scoreDisplay.textContent = `${score} 点`;
 
-        if (score <= 30) {
+        if (score <= 18) {
         starsDisplay.innerHTML = "★☆☆☆☆";
         resultMessage.innerHTML = `
           あなたの執着度はかなり低め。<br>
@@ -187,7 +187,14 @@
           「執着しない＝冷たい」ではなく、必要な距離感を保ててる証拠。<br>
           この“心の余白”を、もっと心地よく育てていこう♡
         `;
-      } else if (score <= 60) {
+      } else if (score <= 36) {
+        starsDisplay.innerHTML = "★★☆☆☆";
+        resultMessage.innerHTML = `
+          執着の傾向は弱め。<br>
+          少し引っかかる感情があるかもしれないけど、ちゃんと客観視できているよ。<br><br>
+          これから先、もっと軽やかに生きるヒントを拾っていける状態だよ♡
+        `;
+      } else if (score <= 54) {
         starsDisplay.innerHTML = "★★★☆☆";
         resultMessage.innerHTML = `
           あなたの中に“執着の芽”が育ちつつあります。<br>
@@ -195,6 +202,14 @@
           そんな“ぐるぐる”を感じてるなら、今が見直すチャンス。<br><br>
           でも大丈夫。<br>
           それって、あなたが「本当はもっと自由に生きたい」って思ってる証拠だから♡
+        `;
+      } else if (score <= 72) {
+        starsDisplay.innerHTML = "★★★★☆";
+        resultMessage.innerHTML = `
+          執着傾向はかなり強め。<br>
+          頭では分かっていても、気持ちがついてこないことが多いかも。<br><br>
+          無理に変えようとしなくていいよ。<br>
+          ただ、「気づく」だけで、執着は少しずつゆるんでいくから♡
         `;
       } else {
         starsDisplay.innerHTML = "★★★★★";
@@ -205,8 +220,15 @@
           執着って、弱さじゃなくて “強さ” の裏返しだから。<br>
           この診断が、その “強さ” を「自由さ」に変えるきっかけになりますように♡
         `;
-          starsDisplay.innerHTML = "★★★★★";
-          resultMessage.innerHTML = `あなたの中には“強い執着”があります。<br>それは悪いことではなく、あなたが一生懸命生きてきた証。<br>でも、そろそろ自分を縛る“思い込み”を手放していいタイミングかも。<br>もっと楽になって、もっと自由になろう。`;
+        starsDisplay.innerHTML = "★★★★★";
+        resultMessage.innerHTML = `
+          あなたの執着度はかなり高め。<br>
+          「手放したいのに手放せない」そんな思いが、いくつも積み重なっているかも。<br><br>
+          でも、安心して。<br>
+          執着って、弱さじゃなくて “強さ” の裏返しだから。<br>
+          この診断が、その “強さ” を「自由さ」に変えるきっかけになりますように♡
+        `;
+      }
         }
         return;
       }
